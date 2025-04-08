@@ -10,7 +10,7 @@ const config = [
   {
     ignores: [
       'build',
-      'test'
+      'test',
     ],
   },
   {
