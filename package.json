@@ -14,39 +14,38 @@
   },
   "dependencies": {
     "@fastify/compress": "^8.0",
-    "@fastify/cors": "^10.0",
+    "@fastify/cors": "^11.0",
     "@fastify/response-validation": "^3.0",
     "@fastify/swagger": "^9.4",
-    "@types/bcryptjs": "^2.4",
     "@types/fs-extra": "^11.0",
     "@types/nodemailer": "^6.4",
     "@types/yargs-parser": "^21.0",
     "ajv": "^8.17",
-    "bcryptjs": "^2.4",
-    "bullmq": "^5.34",
+    "bcryptjs": "^3.0",
+    "bullmq": "^5.48",
     "dotenv": "^16.4",
     "fast-uri": "^3.0",
     "fastify": "^5.2",
-    "fs-extra": "^11.2",
-    "ical-generator": "^8.0",
-    "ioredis": "^5.4",
-    "jose": "^5.9",
-    "nodemailer": "^6.9",
+    "fs-extra": "^11.3",
+    "ical-generator": "^8.1",
+    "ioredis": "^5.6",
+    "jose": "^6.0",
+    "nodemailer": "^6.10",
     "openapi-types": "^12.1",
     "pino": "^9.6",
     "pino-pretty": "^13.0",
     "yargs-parser": "^21.1"
   },
   "peerDependencies": {
-    "@types/node": "^22.10",
-    "typescript": "^5.7"
+    "@types/node": "^22.14",
+    "typescript": "^5.8"
   },
   "devDependencies": {
-    "@apeframework/eslint": "0.0.0-dev.31",
-    "@types/node": "^22.10",
-    "eslint": "^9.17",
+    "@apeframework/eslint": "0.0.0-dev.38",
+    "@types/node": "^22.14",
+    "eslint": "^9.24",
     "npm-check-updates": "^17.1",
     "tsx": "^4.19",
-    "typescript": "^5.7"
+    "typescript": "^5.8"
   }
 }
