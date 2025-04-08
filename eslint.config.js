@@ -2,13 +2,23 @@ import base from '@apeframework/eslint/base'
 import typescript from '@apeframework/eslint/typescript'
 
 const config = [
-  base,
-  typescript,
+  base(),
+  {
+    files: ['*.ts', '**/*.ts'],
+    ...typescript(),
+  },
   {
     ignores: [
       'build',
-      'test',
+      'test'
     ],
+  },
+  {
+    rules: {},
+  },
+  {
+    files: ['*.ts', '**/*.ts'],
+    rules: {},
   },
 ]
 
