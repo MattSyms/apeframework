@@ -122,6 +122,10 @@ class Server {
     })
   }
 
+  public async close(): Promise<void> {
+    await this.server.close()
+  }
+
   public openapi(format: OpenApiFormat): OpenAPIV3.Document {
     return this.server.swagger({
       yaml: format === OpenApiFormat.YAML,
