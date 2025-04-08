@@ -1,5 +1,12 @@
 import type { Attachment } from '../../Attachment.js'
-import type { Attachment as NodemailerAttachment } from 'nodemailer/lib/mailer'
+import type { Readable } from 'stream'
+
+interface NodemailerAttachment {
+  filename: string,
+  cid: string,
+  contentType: string | undefined,
+  content: Buffer | Readable | string,
+}
 
 const getAttachments = (attachments?: Attachment[]): NodemailerAttachment[] => {
   return attachments

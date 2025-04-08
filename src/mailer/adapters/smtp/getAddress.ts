@@ -1,5 +1,9 @@
 import type { Address } from '../../Address.js'
-import type { Address as NodemailerAddress } from 'nodemailer/lib/mailer'
+
+interface NodemailerAddress {
+  address: string,
+  name: string,
+}
 
 const getAddress = (address?: Address): NodemailerAddress | undefined => {
   return address
