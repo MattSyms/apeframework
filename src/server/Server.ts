@@ -1,4 +1,5 @@
 import compress from '@fastify/compress'
+import cookie from '@fastify/cookie'
 import cors from '@fastify/cors'
 import responseValidation from '@fastify/response-validation'
 import swagger from '@fastify/swagger'
@@ -35,7 +36,14 @@ class Server {
     },
     cors?: {
       enabled?: boolean,
-      origins?: string[],
+      allowedOrigins?: string[],
+      allowedMethods?: string[],
+      allowedHeaders?: string[],
+      exposedHeaders?: string[],
+      allowCredentials?: boolean,
+    },
+    cookies?: {
+      enabled?: boolean,
     },
     onRequest?: Handler,
     onResponse?: Handler,
@@ -74,8 +82,16 @@ class Server {
 
     if (params.cors?.enabled) {
       this.server.register(cors, {
-        origin: params.cors.origins,
+        origin: params.cors.allowedOrigins,
+        methods: params.cors.allowedMethods,
+        allowedHeaders: params.cors.allowedHeaders,
+        exposedHeaders: params.cors.exposedHeaders,
+        credentials: params.cors.allowCredentials,
       })
+    }
+
+    if (params.cookies?.enabled) {
+      this.server.register(cookie)
     }
 
     this.server.register((server, options, done) => {
