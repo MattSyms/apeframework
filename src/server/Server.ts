@@ -1,5 +1,5 @@
 import compress from '@fastify/compress'
-import cookie from '@fastify/cookie'
+import cookies from '@fastify/cookie'
 import cors from '@fastify/cors'
 import responseValidation from '@fastify/response-validation'
 import swagger from '@fastify/swagger'
@@ -29,7 +29,9 @@ class Server {
       name?: string,
       version?: string,
     },
-    responseValidation?: boolean,
+    responseValidation?: {
+      enabled?: boolean,
+    },
     compression?: {
       enabled?: boolean,
       threshold?: number,
@@ -55,8 +57,10 @@ class Server {
 
     this.server = fastify()
 
+    const ajv = getAjv(params.formats)
+
     this.server.setValidatorCompiler(({ schema }) => {
-      return getAjv(params.formats).compile(schema)
+      return ajv.compile(schema)
     })
 
     this.server.register(swagger, {
@@ -69,8 +73,8 @@ class Server {
       },
     })
 
-    if (params.responseValidation) {
-      this.server.register(responseValidation)
+    if (params.responseValidation?.enabled) {
+      this.server.register(responseValidation, { ajv })
     }
 
     if (params.compression?.enabled) {
@@ -91,7 +95,7 @@ class Server {
     }
 
     if (params.cookies?.enabled) {
-      this.server.register(cookie)
+      this.server.register(cookies)
     }
 
     this.server.register((server, options, done) => {
