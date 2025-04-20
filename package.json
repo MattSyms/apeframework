@@ -22,7 +22,7 @@
     "@types/nodemailer": "^6.4",
     "@types/yargs-parser": "^21.0",
     "ajv": "^8.17",
-    "bcryptjs": "^3.0",
+    "argon2": "^0.41",
     "bullmq": "^5.49",
     "dotenv": "^16.5",
     "fast-uri": "^3.0",
