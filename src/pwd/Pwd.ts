@@ -42,7 +42,7 @@ class Pwd {
     password: string,
   ): Promise<string> {
     return argon2.hash(password, {
-      type: this.algorithm,
+      ...this.algorithm ? { type: this.algorithm } : {},
       hashLength: this.hashLength,
       timeCost: this.timeCost,
       memoryCost: this.memoryCost,
