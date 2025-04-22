@@ -1,5 +1,5 @@
-const getTimestamp = (): number => {
-  return Math.trunc(Date.now() / 1000)
+const getTimestamp = (date: Date = new Date()): number => {
+  return Math.trunc(date.getTime() / 1000)
 }
 
 export {

@@ -17,7 +17,7 @@ class Pwd {
   private readonly parallelism: number | undefined
 
   public constructor(params: {
-    algorithm?: Algorithm,
+    algorithm: Algorithm,
     hashLength?: number,
     memoryCost?: number,
     timeCost?: number,
@@ -42,7 +42,7 @@ class Pwd {
     password: string,
   ): Promise<string> {
     return argon2.hash(password, {
-      ...this.algorithm ? { type: this.algorithm } : {},
+      type: this.algorithm,
       hashLength: this.hashLength,
       memoryCost: this.memoryCost,
       timeCost: this.timeCost,
