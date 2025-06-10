@@ -1,8 +1,9 @@
-import type { FastifyReply, FastifyRequest } from 'fastify'
+import type { Request } from './Request.js'
+import type { Response } from './Response.js'
 
 type Handler = (
-  request: FastifyRequest,
-  response: FastifyReply,
+  request: Request,
+  response: Response,
 ) => Promise<void>
 
 export {
