@@ -1,6 +1,8 @@
 import type { FastifyRequest } from 'fastify'
 
-type Request = FastifyRequest
+interface Request extends FastifyRequest {
+  cookies: Record<string, string | undefined>,
+}
 
 export {
   type Request,
