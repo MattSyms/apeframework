@@ -18,6 +18,7 @@ jobs:
           tag=${{ github.ref_name }}
           version=${tag:1}
           dev=${{ startsWith(github.ref_name, 'v0.0.0-dev') }}
+          echo "tag=$tag" >> $GITHUB_OUTPUT
           echo "version=$version" >> $GITHUB_OUTPUT
           echo "dev=$dev" >> $GITHUB_OUTPUT
 
