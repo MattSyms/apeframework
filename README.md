@@ -11,3 +11,49 @@ GitHub repository: [MattSyms/apeframework](https://github.com/MattSyms/apeframew
 ```
 yarn add apeframework
 ```
+
+## Development
+
+Install dependencies:
+
+```
+yarn
+```
+
+Update dependencies:
+
+```
+yarn update
+```
+
+Compile:
+
+```
+yarn compile
+```
+
+Lint:
+
+```
+yarn lint
+```
+
+## Release:
+
+Tag stable release:
+
+```
+git tag v<major>.<minor>.<patch>
+```
+
+Tag dev release:
+
+```
+git tag v0.0.0-dev.<number>
+```
+
+Push tags:
+
+```
+git push --tags
+```
