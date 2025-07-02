@@ -1,4 +1,4 @@
-import { randomInt } from 'crypto'
+import { randomInt } from 'node:crypto'
 
 const getRandomIntString = (length: number): string => {
   let string = ''

@@ -1,4 +1,4 @@
-import { randomUUID } from 'crypto'
+import { randomUUID } from 'node:crypto'
 import { Mailer } from '../../Mailer.js'
 import type { Mail } from '../../Mail.js'
 

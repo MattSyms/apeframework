@@ -4,7 +4,7 @@
  *   Package build:
  *     yarn package 0.0.0-dev.0
  */
-import { join } from 'path'
+import { join } from 'node:path'
 import fs from 'fs-extra'
 
 const [version] = process.argv.slice(2)

@@ -1,4 +1,4 @@
-import { createCipheriv, createDecipheriv, randomBytes } from 'crypto'
+import { createCipheriv, createDecipheriv, randomBytes } from 'node:crypto'
 import { DecryptError } from './errors/DecryptError.js'
 import { validateSecretLength } from './validateSecretLength.js'
 import type { Algorithm } from './Algorithm.js'

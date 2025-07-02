@@ -1,4 +1,4 @@
-import { EOL } from 'os'
+import { EOL } from 'node:os'
 
 const formatText = (text: string[]): string => {
   return text.join(EOL)

@@ -1,5 +1,5 @@
 import type { Attachment } from '../../Attachment.js'
-import type { Readable } from 'stream'
+import type { Readable } from 'node:stream'
 
 interface NodemailerAttachment {
   filename: string,
