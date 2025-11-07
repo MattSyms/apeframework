@@ -1,4 +1,4 @@
-import { pino } from 'pino'
+import { destination, pino } from 'pino'
 import { Level } from '../../Level.js'
 import { Logger } from '../../Logger.js'
 import { initFile } from './initFile.js'
@@ -18,7 +18,7 @@ class FileLogger extends Logger {
 
     initFile(params.path)
 
-    const stream = pino.destination(params.path)
+    const stream = destination(params.path)
 
     this.logger = pino({
       enabled: params.level !== Level.OFF,

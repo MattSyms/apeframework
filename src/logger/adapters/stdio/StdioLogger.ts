@@ -1,4 +1,4 @@
-import { pino } from 'pino'
+import { destination, pino } from 'pino'
 import pretty from 'pino-pretty'
 import { Level } from '../../Level.js'
 import { Logger } from '../../Logger.js'
@@ -18,7 +18,7 @@ class StdioLogger extends Logger {
 
     const stream = params?.pretty
       ? pretty()
-      : pino.destination(process.stdout.fd)
+      : destination(process.stdout.fd)
 
     this.logger = pino({
       enabled: params?.level !== Level.OFF,
