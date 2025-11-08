@@ -25,6 +25,13 @@ class Server {
     port?: number,
     routes: Route[],
     formats?: Format[],
+    trustProxy?: boolean,
+    connectionTimeout?: number,
+    requestTimeout?: number,
+    keepAliveTimeout?: number,
+    maxRequestsPerSocket?: number,
+    maxParamLength?: number,
+    bodyLimit?: number,
     openapi?: {
       name?: string,
       version?: string,
@@ -55,7 +62,15 @@ class Server {
     this.host = params.host
     this.port = params.port
 
-    this.server = fastify()
+    this.server = fastify({
+      trustProxy: params.trustProxy ?? false,
+      connectionTimeout: params.connectionTimeout ?? 30000,
+      requestTimeout: params.requestTimeout ?? 30000,
+      keepAliveTimeout: params.keepAliveTimeout ?? 30000,
+      maxRequestsPerSocket: params.maxRequestsPerSocket ?? 100,
+      maxParamLength: params.maxParamLength ?? 100,
+      bodyLimit: params.bodyLimit ?? 1000000,
+    })
 
     const ajv = getAjv(params.formats)
 
