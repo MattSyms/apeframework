@@ -1,7 +1,6 @@
 import { Sequelize } from 'sequelize'
 import type { Db } from '../../Db.js'
 import type { Initializer } from '../../Initializer.js'
-import type { LogHandler } from '../../LogHandler.js'
 
 class MysqlDb extends Sequelize implements Db {
   public constructor(params: {
@@ -12,7 +11,7 @@ class MysqlDb extends Sequelize implements Db {
     database: string,
     maxConnections?: number,
     initializers?: Initializer[],
-    onLog?: LogHandler,
+    onLog?: (message: string) => void,
   }) {
     super(
       params.database,
