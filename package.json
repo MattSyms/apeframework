@@ -45,7 +45,7 @@
     "typescript": "^5.9"
   },
   "devDependencies": {
-    "@apeframework/eslint": "^0.3",
+    "@apeframework/eslint": "^0.4",
     "@types/node": "^24.10",
     "eslint": "^9.39",
     "npm-check-updates": "^19.1",
