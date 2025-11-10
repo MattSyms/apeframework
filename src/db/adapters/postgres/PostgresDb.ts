@@ -3,7 +3,7 @@ import { Db } from '../../Db.js'
 import type { Tls } from '../../../tls/Tls.js'
 import type { Initializer } from '../../Initializer.js'
 
-class MysqlDb extends Db {
+class PostgresDb extends Db {
   public constructor(params: {
     host: string,
     port?: number,
@@ -23,13 +23,13 @@ class MysqlDb extends Db {
   }) {
     super({
       options: {
-        dialect: 'mysql',
+        dialect: 'postgres',
         dialectOptions: {
           ssl: getTls(params.tls),
-          connectTimeout: params.connectionTimeout ?? 10000,
+          connectionTimeoutMillis: params.connectionTimeout ?? 10000,
         },
         host: params.host,
-        port: params.port ?? 3306,
+        port: params.port ?? 5432,
         username: params.user,
         password: params.password,
         database: params.database,
@@ -49,5 +49,5 @@ class MysqlDb extends Db {
 }
 
 export {
-  MysqlDb,
+  PostgresDb,
 }

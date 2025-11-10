@@ -3,7 +3,7 @@ import { Db } from '../../Db.js'
 import type { Tls } from '../../../tls/Tls.js'
 import type { Initializer } from '../../Initializer.js'
 
-class MysqlDb extends Db {
+class MssqlDb extends Db {
   public constructor(params: {
     host: string,
     port?: number,
@@ -21,15 +21,20 @@ class MysqlDb extends Db {
     initializers?: Initializer[],
     onLog?: (message: string) => void,
   }) {
+    const tls = getTls(params.tls)
+
     super({
       options: {
-        dialect: 'mysql',
+        dialect: 'mssql',
         dialectOptions: {
-          ssl: getTls(params.tls),
-          connectTimeout: params.connectionTimeout ?? 10000,
+          options: {
+            cryptoCredentialsDetails: tls,
+            trustServerCertificate: tls?.rejectUnauthorized ?? false,
+            connectTimeout: params.connectionTimeout ?? 15000,
+          },
         },
         host: params.host,
-        port: params.port ?? 3306,
+        port: params.port ?? 1433,
         username: params.user,
         password: params.password,
         database: params.database,
@@ -49,5 +54,5 @@ class MysqlDb extends Db {
 }
 
 export {
-  MysqlDb,
+  MssqlDb,
 }

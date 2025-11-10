@@ -3,7 +3,7 @@ import { Db } from '../../Db.js'
 import type { Tls } from '../../../tls/Tls.js'
 import type { Initializer } from '../../Initializer.js'
 
-class MysqlDb extends Db {
+class MariaDb extends Db {
   public constructor(params: {
     host: string,
     port?: number,
@@ -23,7 +23,7 @@ class MysqlDb extends Db {
   }) {
     super({
       options: {
-        dialect: 'mysql',
+        dialect: 'mariadb',
         dialectOptions: {
           ssl: getTls(params.tls),
           connectTimeout: params.connectionTimeout ?? 10000,
@@ -49,5 +49,5 @@ class MysqlDb extends Db {
 }
 
 export {
-  MysqlDb,
+  MariaDb,
 }

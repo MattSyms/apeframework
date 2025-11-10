@@ -29,9 +29,9 @@ class Server {
     connectionTimeout?: number,
     requestTimeout?: number,
     keepAliveTimeout?: number,
-    maxRequestsPerSocket?: number,
-    maxParamLength?: number,
-    bodyLimit?: number,
+    connectionMaxUses?: number,
+    maxParams?: number,
+    maxBodySize?: number,
     openapi?: {
       name?: string,
       version?: string,
@@ -67,9 +67,9 @@ class Server {
       connectionTimeout: params.connectionTimeout ?? 30000,
       requestTimeout: params.requestTimeout ?? 30000,
       keepAliveTimeout: params.keepAliveTimeout ?? 30000,
-      maxRequestsPerSocket: params.maxRequestsPerSocket ?? 100,
-      maxParamLength: params.maxParamLength ?? 100,
-      bodyLimit: params.bodyLimit ?? 1000000,
+      maxRequestsPerSocket: params.connectionMaxUses ?? 100,
+      maxParamLength: params.maxParams ?? 100,
+      bodyLimit: params.maxBodySize ?? 1000000,
     })
 
     const ajv = getAjv(params.formats)
