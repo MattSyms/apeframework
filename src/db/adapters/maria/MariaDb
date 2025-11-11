@@ -7,7 +7,7 @@ class MariaDb extends Db {
   public constructor(params: {
     host: string,
     port?: number,
-    tls?: Tls,
+    tls?: Tls | boolean,
     user: string,
     password: string,
     database: string,
@@ -19,13 +19,15 @@ class MariaDb extends Db {
     connectionEvictInterval?: number,
     connectionMaxUses?: number,
     initializers?: Initializer[],
-    onLog?: (message: string) => void,
+    onQuery?: (message: string) => void,
   }) {
     super({
       options: {
         dialect: 'mariadb',
         dialectOptions: {
-          ssl: getTls(params.tls),
+          ssl: typeof params.tls === 'boolean'
+            ? params.tls
+            : getTls(params.tls),
           connectTimeout: params.connectionTimeout ?? 10000,
         },
         host: params.host,
@@ -35,13 +37,13 @@ class MariaDb extends Db {
         database: params.database,
         pool: {
           min: params.minConnections ?? 0,
-          max: params.maxConnections ?? 5,
+          max: params.maxConnections ?? 10,
           acquire: params.connectionAcquireTimeout ?? 30000,
           idle: params.connectionIdleTimeout ?? 30000,
           evict: params.connectionEvictInterval ?? 30000,
           maxUses: params.connectionMaxUses ?? 100,
         },
-        logging: params.onLog,
+        logging: params.onQuery,
       },
       initializers: params.initializers,
     })

@@ -6,7 +6,7 @@ class SqliteDb extends Db {
   public constructor(params: {
     storage: string,
     initializers?: Initializer[],
-    onLog?: (message: string) => void,
+    onQuery?: (message: string) => void,
   }) {
     super({
       options: {
@@ -17,7 +17,7 @@ class SqliteDb extends Db {
             | SQLite.OPEN_CREATE,
         },
         storage: params.storage,
-        logging: params.onLog,
+        logging: params.onQuery,
       },
       initializers: params.initializers,
     })

@@ -35,7 +35,7 @@ class SmtpMailer extends Mailer {
         }
         : undefined,
       pool: true,
-      maxConnections: params.maxConnections ?? 5,
+      maxConnections: params.maxConnections ?? 10,
     })
   }
 

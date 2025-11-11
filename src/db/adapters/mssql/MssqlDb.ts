@@ -7,7 +7,7 @@ class MssqlDb extends Db {
   public constructor(params: {
     host: string,
     port?: number,
-    tls?: Tls,
+    tls?: Tls | boolean,
     user: string,
     password: string,
     database: string,
@@ -19,18 +19,23 @@ class MssqlDb extends Db {
     connectionEvictInterval?: number,
     connectionMaxUses?: number,
     initializers?: Initializer[],
-    onLog?: (message: string) => void,
+    onQuery?: (message: string) => void,
   }) {
-    const tls = getTls(params.tls)
+    const tls = typeof params.tls === 'boolean'
+      ? undefined
+      : getTls(params.tls)
 
     super({
       options: {
         dialect: 'mssql',
         dialectOptions: {
           options: {
+            encrypt: typeof params.tls === 'boolean'
+              ? params.tls
+              : Boolean(tls),
             cryptoCredentialsDetails: tls,
-            trustServerCertificate: tls?.rejectUnauthorized ?? false,
-            connectTimeout: params.connectionTimeout ?? 15000,
+            trustServerCertificate: tls?.rejectUnauthorized === false,
+            connectTimeout: params.connectionTimeout ?? 10000,
           },
         },
         host: params.host,
@@ -40,13 +45,13 @@ class MssqlDb extends Db {
         database: params.database,
         pool: {
           min: params.minConnections ?? 0,
-          max: params.maxConnections ?? 5,
+          max: params.maxConnections ?? 10,
           acquire: params.connectionAcquireTimeout ?? 30000,
           idle: params.connectionIdleTimeout ?? 30000,
           evict: params.connectionEvictInterval ?? 30000,
           maxUses: params.connectionMaxUses ?? 100,
         },
-        logging: params.onLog,
+        logging: params.onQuery,
       },
       initializers: params.initializers,
     })

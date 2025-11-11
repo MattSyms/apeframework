@@ -13,7 +13,7 @@ const getTls = (tls?: Tls): {
       ...tls.cert ? { cert: readFile(tls.cert) } : {},
       ...tls.ca ? { ca: readFile(tls.ca) } : {},
       ...tls.verify === undefined
-        ? {}
+        ? { rejectUnauthorized: true }
         : { rejectUnauthorized: tls.verify },
     }
     : undefined
