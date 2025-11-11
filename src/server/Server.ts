@@ -11,6 +11,8 @@ import { OpenApiFormat } from './OpenApiFormat.js'
 import type { ErrorHandler } from './ErrorHandler.js'
 import type { Format } from './Format.js'
 import type { Handler } from './Handler.js'
+import type { InjectParams } from './InjectParams.js'
+import type { InjectResponse } from './InjectResponse.js'
 import type { Route } from './Route.js'
 import type { FastifyInstance } from 'fastify'
 import type { OpenAPIV3 } from 'openapi-types'
@@ -179,6 +181,10 @@ class Server {
 
   public async close(): Promise<void> {
     await this.server.close()
+  }
+
+  public async inject(params: InjectParams): Promise<InjectResponse> {
+    return this.server.inject(params)
   }
 
   public openapi(format: OpenApiFormat): OpenAPIV3.Document {
