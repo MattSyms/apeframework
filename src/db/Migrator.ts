@@ -23,13 +23,13 @@ class Migrator {
       const name = basename(filename, extname(filename))
 
       const up: MigrationFn<QueryInterface> = async ({ path }) => {
-        const migration: Migration = await import(String(path))
-        await migration.up(context)
+        const module: { default: Migration } = await import(String(path))
+        await module.default.up(context)
       }
 
       const down: MigrationFn<QueryInterface> = async ({ path }) => {
-        const migration: Migration = await import(String(path))
-        await migration.down(context)
+        const module: { default: Migration } = await import(String(path))
+        await module.default.down(context)
       }
 
       return { name, up, down }
