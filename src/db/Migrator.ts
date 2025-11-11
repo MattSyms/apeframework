@@ -14,6 +14,7 @@ class Migrator {
     modelName: string,
     directory: string,
     extension: string,
+    loadMigration: (path: string) => Promise<Migration>,
     onApply?: (name: string) => void,
     onRevert?: (name: string) => void,
   }) {
@@ -23,13 +24,13 @@ class Migrator {
       const name = basename(filename, extname(filename))
 
       const up: MigrationFn<QueryInterface> = async ({ path }) => {
-        const module: { default: Migration } = await import(String(path))
-        await module.default.up(context)
+        const migration = await params.loadMigration(String(path))
+        await migration.up(context)
       }
 
       const down: MigrationFn<QueryInterface> = async ({ path }) => {
-        const module: { default: Migration } = await import(String(path))
-        await module.default.down(context)
+        const migration = await params.loadMigration(String(path))
+        await migration.down(context)
       }
 
       return { name, up, down }
