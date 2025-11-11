@@ -1,6 +1,8 @@
 import compress from '@fastify/compress'
-import cookies from '@fastify/cookie'
+import cookie from '@fastify/cookie'
 import cors from '@fastify/cors'
+import formbody from '@fastify/formbody'
+import multipart from '@fastify/multipart'
 import responseValidation from '@fastify/response-validation'
 import swagger from '@fastify/swagger'
 import fastify from 'fastify'
@@ -23,20 +25,30 @@ class Server {
   public constructor(params: {
     host: string,
     port?: number,
+    openapi?: {
+      name?: string,
+      version?: string,
+    },
     routes: Route[],
     formats?: Format[],
+    validateResponses?: boolean,
     trustProxy?: boolean,
     connectionTimeout?: number,
     requestTimeout?: number,
     keepAliveTimeout?: number,
     connectionMaxUses?: number,
-    maxBodySize?: number,
-    openapi?: {
-      name?: string,
-      version?: string,
+    bodyMaxSize?: number,
+    form?: {
+      enabled?: boolean,
     },
-    responseValidation?: boolean,
-    cookies?: boolean,
+    multipart?: {
+      enabled?: boolean,
+      maxFiles?: number,
+      fileMaxSize?: number,
+    },
+    cookies?: {
+      enabled?: boolean,
+    },
     compression?: {
       enabled?: boolean,
       threshold?: number,
@@ -63,7 +75,7 @@ class Server {
       requestTimeout: params.requestTimeout ?? 30000,
       keepAliveTimeout: params.keepAliveTimeout ?? 30000,
       maxRequestsPerSocket: params.connectionMaxUses ?? 100,
-      bodyLimit: params.maxBodySize ?? 1000000,
+      bodyLimit: params.bodyMaxSize ?? 1000000,
     })
 
     const ajv = getAjv(params.formats)
@@ -82,18 +94,32 @@ class Server {
       },
     })
 
-    if (params.responseValidation) {
+    if (params.validateResponses) {
       this.server.register(responseValidation, { ajv })
     }
 
-    if (params.cookies) {
-      this.server.register(cookies)
+    if (params.form?.enabled) {
+      this.server.register(formbody)
+    }
+
+    if (params.multipart?.enabled) {
+      this.server.register(multipart, {
+        attachFieldsToBody: true,
+        limits: {
+          files: params.multipart.maxFiles ?? 1,
+          fileSize: params.multipart.fileMaxSize ?? 1000000,
+        },
+      })
+    }
+
+    if (params.cookies?.enabled) {
+      this.server.register(cookie)
     }
 
     if (params.compression?.enabled) {
       this.server.register(compress, {
         global: true,
-        threshold: params.compression.threshold ?? 1024,
+        threshold: params.compression.threshold ?? 1000,
       })
     }
 
