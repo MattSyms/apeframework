@@ -30,15 +30,13 @@ class Server {
     requestTimeout?: number,
     keepAliveTimeout?: number,
     connectionMaxUses?: number,
-    maxParams?: number,
     maxBodySize?: number,
     openapi?: {
       name?: string,
       version?: string,
     },
-    responseValidation?: {
-      enabled?: boolean,
-    },
+    responseValidation?: boolean,
+    cookies?: boolean,
     compression?: {
       enabled?: boolean,
       threshold?: number,
@@ -50,9 +48,6 @@ class Server {
       allowedHeaders?: string[],
       exposedHeaders?: string[],
       allowCredentials?: boolean,
-    },
-    cookies?: {
-      enabled?: boolean,
     },
     onRequest?: Handler,
     onResponse?: Handler,
@@ -68,7 +63,6 @@ class Server {
       requestTimeout: params.requestTimeout ?? 30000,
       keepAliveTimeout: params.keepAliveTimeout ?? 30000,
       maxRequestsPerSocket: params.connectionMaxUses ?? 100,
-      maxParamLength: params.maxParams ?? 100,
       bodyLimit: params.maxBodySize ?? 1000000,
     })
 
@@ -88,8 +82,12 @@ class Server {
       },
     })
 
-    if (params.responseValidation?.enabled) {
+    if (params.responseValidation) {
       this.server.register(responseValidation, { ajv })
+    }
+
+    if (params.cookies) {
+      this.server.register(cookies)
     }
 
     if (params.compression?.enabled) {
@@ -107,10 +105,6 @@ class Server {
         exposedHeaders: params.cors.exposedHeaders,
         credentials: params.cors.allowCredentials,
       })
-    }
-
-    if (params.cookies?.enabled) {
-      this.server.register(cookies)
     }
 
     this.server.register((server, options, done) => {
