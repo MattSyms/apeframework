@@ -3,8 +3,8 @@ import type { Method } from './Method.js'
 import type { Schema } from './Schema.js'
 
 interface Route {
-  path: string,
   method: Method,
+  path: string,
   name?: string,
   description?: string,
   schema: Schema,

@@ -138,8 +138,8 @@ class Server {
     this.server.register((server, options, done) => {
       params.routes.forEach((route) => {
         server.route({
-          url: route.path,
           method: route.method,
+          url: route.path,
           schema: {
             summary: route.name ?? route.path,
             description: route.description,
