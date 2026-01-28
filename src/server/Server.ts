@@ -106,7 +106,7 @@ class Server {
 
     if (params.multipart?.enabled) {
       this.server.register(multipart, {
-        attachFieldsToBody: true,
+        attachFieldsToBody: 'keyValues',
         limits: {
           files: params.multipart.maxFiles ?? 1,
           fileSize: params.multipart.fileMaxSize ?? 1000000,
