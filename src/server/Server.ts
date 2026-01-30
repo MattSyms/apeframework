@@ -143,11 +143,24 @@ class Server {
           schema: {
             summary: route.name ?? route.path,
             description: route.description,
-            ...route.schema.params ? { params: route.schema.params } : {},
-            ...route.schema.query ? { query: route.schema.query } : {},
-            ...route.schema.headers ? { headers: route.schema.headers } : {},
-            ...route.schema.body ? { body: route.schema.body } : {},
-            ...route.schema.response ? { response: route.schema.response } : {},
+            ...route.schema.contentType
+              ? { consumes: [route.schema.contentType] }
+              : {},
+            ...route.schema.params
+              ? { params: route.schema.params }
+              : {},
+            ...route.schema.query
+              ? { query: route.schema.query }
+              : {},
+            ...route.schema.headers
+              ? { headers: route.schema.headers }
+              : {},
+            ...route.schema.body
+              ? { body: route.schema.body }
+              : {},
+            ...route.schema.response
+              ? { response: route.schema.response }
+              : {},
           },
           handler: route.handler,
         })

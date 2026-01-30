@@ -1,6 +1,7 @@
 import type { OpenAPIV3 } from 'openapi-types'
 
 interface Schema {
+  contentType?: string,
   params?: OpenAPIV3.SchemaObject,
   query?: OpenAPIV3.SchemaObject,
   headers?: OpenAPIV3.SchemaObject,
