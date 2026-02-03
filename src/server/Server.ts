@@ -143,9 +143,7 @@ class Server {
           schema: {
             summary: route.name ?? route.path,
             description: route.description,
-            ...route.schema.contentType
-              ? { consumes: [route.schema.contentType] }
-              : {},
+            tags: route.tags,
             ...route.schema.params
               ? { params: route.schema.params }
               : {},

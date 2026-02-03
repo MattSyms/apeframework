@@ -7,6 +7,7 @@ interface Route {
   path: string,
   name?: string,
   description?: string,
+  tags?: string[],
   schema: Schema,
   handler: Handler,
 }
