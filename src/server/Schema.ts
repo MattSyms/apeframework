@@ -5,7 +5,7 @@ interface Schema {
   query?: OpenAPIV3.SchemaObject,
   headers?: OpenAPIV3.SchemaObject,
   body?: OpenAPIV3.RequestBodyObject,
-  response?: OpenAPIV3.ResponseObject,
+  response?: OpenAPIV3.ResponsesObject,
 }
 
 export {
