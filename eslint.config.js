@@ -1,8 +1,11 @@
-import base from '@apeframework/eslint/base'
+import javascript from '@apeframework/eslint/javascript'
 import typescript from '@apeframework/eslint/typescript'
 
 const config = [
-  base(),
+  {
+    files: ['*.js', '**/*.js'],
+    ...javascript(),
+  },
   {
     files: ['*.ts', '**/*.ts'],
     ...typescript(),
@@ -14,6 +17,7 @@ const config = [
     ],
   },
   {
+    files: ['*.js', '**/*.js'],
     rules: {},
   },
   {
