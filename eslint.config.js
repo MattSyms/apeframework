@@ -3,6 +3,12 @@ import typescript from '@apeframework/eslint/typescript'
 
 const config = [
   {
+    ignores: [
+      'build',
+      'test',
+    ],
+  },
+  {
     files: ['*.js', '**/*.js'],
     ...javascript(),
   },
@@ -11,16 +17,6 @@ const config = [
     ...typescript(),
   },
   {
-    ignores: [
-      'build',
-      'test',
-    ],
-  },
-  {
-    rules: {},
-  },
-  {
-    files: ['*.ts', '**/*.ts'],
     rules: {},
   },
 ]
