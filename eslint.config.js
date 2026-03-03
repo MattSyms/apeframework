@@ -17,7 +17,6 @@ const config = [
     ],
   },
   {
-    files: ['*.js', '**/*.js'],
     rules: {},
   },
   {
