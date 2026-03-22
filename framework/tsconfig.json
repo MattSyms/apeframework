@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "baseUrl": "src",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ESNext",
+    "skipLibCheck": true,
+    "strict": true
+  },
+  "include": [
+    "bin",
+    "src"
+  ]
+}

@@ -1,0 +1,23 @@
+services:
+  node:
+    image: node:22
+    user: node
+    working_dir: /home/node/apeframework
+    volumes:
+      - ../..:/home/node/apeframework
+    depends_on:
+      maildev:
+        condition: service_started
+      wait-for-it:
+        condition: service_completed_successfully
+
+  maildev:
+    image: maildev/maildev
+
+  wait-for-it:
+    image: mattsyms/wait-for-it
+    entrypoint: >-
+      timeout 30 bash -c '
+        w -t 0 maildev:1025 &&
+        w -t 0 maildev:1080
+      '
