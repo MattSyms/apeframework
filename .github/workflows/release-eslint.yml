@@ -1,4 +1,4 @@
-name: Release eslint NPM package
+name: Release ESLint NPM Package
 
 run-name: Release ${{ github.ref_name }}
 
@@ -11,9 +11,6 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./eslint
     steps:
       - name: Get tag
         id: tag
@@ -35,21 +32,27 @@ jobs:
           registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
+        working-directory: ./eslint
         run: yarn
 
       - name: Compile
+        working-directory: ./eslint
         run: yarn compile
 
       - name: Lint
+        working-directory: ./eslint
         run: yarn lint
 
       - name: Build
+        working-directory: ./eslint
         run: yarn build
 
       - name: Package
+        working-directory: ./eslint
         run: yarn package ${{ steps.tag.outputs.version }}
 
       - name: Publish to NPM
+        working-directory: ./eslint
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
